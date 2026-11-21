@@ -1,0 +1,22 @@
+services:
+  api:
+    build:
+      context: ./api
+    environment:
+      APP_ORIGIN: http://localhost:8000
+      INTAKE_DB: /data/intake.sqlite
+    volumes:
+      - intake-data:/data
+    expose:
+      - "8080"
+
+  web:
+    build:
+      context: ./web
+    ports:
+      - "8000:80"
+    depends_on:
+      - api
+
+volumes:
+  intake-data:
